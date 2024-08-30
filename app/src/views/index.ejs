@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WebSocket Client</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Express Form</title>
 </head>
 <body>
-  Hello world!!
+    <h1>Payment Form</h1>
+    <button id="sendPostRequest">Send POST Request</button>
+
+    <script>
+        document.getElementById('sendPostRequest').addEventListener('click', function () {
+            const data = {
+                payMethod: "CARD",
+                trxCd: "0",
+                mid: "kistest00m",
+                goodsNm: "컴퓨터",
+                currencyType: "KRW",
+                ordNo: "1335233672723",
+                goodsAmt: "1004",
+                ordNm: "홍길동",
+                ordTel: "01020001234",
+                ediDate: "20210327121212",
+                encData: "", // 실제로는 해시된 데이터가 들어가야 함
+                returnUrl: "https://api.kispg.co.kr/returnUrlSample.do"
+            };
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Request was successful! Check the console for details.');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred. Check the console for details.');
+            });
+        });
+    </script>
 </body>
 </html>
